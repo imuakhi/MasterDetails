@@ -1,0 +1,91 @@
+﻿@model MasterDetails.Models.Candidate
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Candidate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                @*<span asp-validation-for="Name" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="control-label"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                @*<span asp-validation-for="DateOfBirth" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                @*<span asp-validation-for="Phone" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                @*<span asp-validation-for="Email" class="text-danger"></span>*@
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Fresher" /> @Html.DisplayNameFor(model => model.Fresher)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Image" class="control-label"></label>
+                <input type="file" name="Image" accept="/images*" class="form-control" />
+                @*<span asp-validation-for="PicPath" class="text-danger"></span>*@
+            </div>
+            <div></div>
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <td>SkillName</td>
+                        <td>SkillLevel</td>
+                        <td>SkillYear</td>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Experiances.Count; i++)
+                    {
+                        <tr>
+                            <td><input asp-for="Experiances[i].SkillName" class="form-control-lg" /></td>
+                            <td><input asp-for="Experiances[i].SkillLevel" class="form-control-lg" /></td>
+                            <td><input asp-for="Experiances[i].SkillYear" class="form-control-lg" /></td>
+                            <td><input type="submit" class="btn btn-danger" value="Delete" onclick="Remove(this)" /></td>
+                            <td> <td><input type="submit" value="Add" name="btn" class="btn btn-success" /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group ">
+                <input type="submit" value="Update" name="btn" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-danger">Cancel</a>
+            </div>
+            @*<div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>*@
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function Remove(e) {
+            e.closest("tr").remove();
+        }
+    </script>
+}
